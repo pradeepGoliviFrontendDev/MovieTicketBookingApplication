@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<header>
+
+ <h1 id="logo" (click)=home()>{{Title}}</h1>
+  <input type="text" placeholder="Search Movie" name="search"  id="search" [(ngModel)]="Search">
+  <div class="flash-message" id="flash-message" [@fadeOut]="visible ? 'visible' : 'void'" (@fadeOut.done)="onAnimationEnd()">
+    <p>50% off on your ticket, Right time for your Experiance</p>
+  </div>
+  <div class="timer-container" *ngIf="remainingTime">
+    <p class="timer-text">Discount Percentage: {{ discountPercentage }}%</p>
+    <p class="timer-value">Offer Ends In: {{ remainingTime.days }} days, {{ remainingTime.hours }} hours, {{ remainingTime.minutes }} minutes, {{ remainingTime.seconds }} seconds</p>
+  </div>
+
+  <nav>
+        <ul class="nav_links">
+        <button (click)="openLocationPopup()" class="button"> Location</button>
+
+        </ul>
+
+  </nav>
+<span>
+  <a class="cta" role="button" *ngIf="!registerService.isloogedin()" routerLink="login"> Login</a>
+  <a class="cta" role="button" *ngIf="(registerService.isloogedin()&&(registerService.GetUserRole()))" routerLink="addmovie"> Add Movie</a>
+  <a class="cta" role="button" *ngIf="(registerService.isloogedin()&&(registerService.GetUserRole()))" routerLink="deletemovie"> Delete Movie</a>
+  <a class="cta" role="button" *ngIf="registerService.isloogedin()"  (click)="registerService.logoutuser()">Logout</a>
+</span>
+</header>
+<app-location *ngIf="showLocationPopup" (locationSelected)="handleLocationSelected($event)" (popupClosed)="handlePopupClosed()"></app-location>
+
+
+<nav class="menu">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
+
+<footer >
+  <section class="foter">
+    <div class="Social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-snapchat"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <ul class="List">
+      <li><a href="#">Service</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+
+  </section>
+</footer>
+
+

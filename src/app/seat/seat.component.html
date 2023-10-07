@@ -1,0 +1,29 @@
+<div class="dptcontainer">
+<span class="dpt"><h3>Select Show Date:</h3>
+  <select class="dropdown" [(ngModel)]="ShowDate" (ngModelChange)="fetchData()">
+    <option value="1-08-2023">1-08-2023</option>
+    <option value="2-08-2023">2-08-2023</option>
+    <option value="3-08-2023">3-08-2023</option>
+    <option value="4-08-2023">4-08-2023</option>
+  </select>
+  </span>
+<span class="dpt"><h3>Select Show Timing:</h3>
+<select class="dropdown" [(ngModel)]="ShowTiming" (ngModelChange)="fetchData()">
+  <option value="10.00">10.00AM</option>
+  <option value="02.00PM">02.00PM</option>
+  <option value="06.00PM">06.00PM</option>
+  <option value="10.00PM">10.00PM</option>
+</select>
+</span>
+</div>
+<div class="seat-container">
+  <div class="screen">Screen</div>
+  <div class="seat-row" *ngFor="let row of seatsByRow">
+    <div *ngFor="let seat of row" [ngClass]="{'seat': true, 'reserved': seat.reserved, 'selected': isSelected(seat.id)  }"
+      (click)="toggleSeatSelection(seat.id)">
+      <div *ngIf="seat==5" class="space"></div>
+      {{ seat.id }}
+    </div>
+  </div>
+</div>
+<button [disabled]="selectedSeats.length === 0"  (click)="reserveSelectedSeats()"  class="Payment">Book Ticket</button>
